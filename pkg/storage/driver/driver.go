@@ -39,11 +39,11 @@ type Creator interface {
 	Create(key string, rls *rspb.Release) error
 }
 
-// Updator is the interface that wraps the Update method.
+// Updater is the interface that wraps the Update method.
 //
 // Update updates an existing release or returns
 // ErrReleaseNotFound if the release does not exist.
-type Updator interface {
+type Updater interface {
 	Update(key string, rls *rspb.Release) error
 }
 
@@ -69,13 +69,13 @@ type Querier interface {
 	Query(labels map[string]string) ([]*rspb.Release, error)
 }
 
-// Driver is the interface composed of Creator, Updator, Deleter, and Querier
+// Driver is the interface composed of Creator, Updater, Deleter, and Querier
 // interfaces. It defines the behavior for storing, updating, deleted,
 // and retrieving Helm releases from some underlying storage mechanism,
 // e.g. memory, configmaps.
 type Driver interface {
 	Creator
-	Updator
+	Updater
 	Deleter
 	Querier
 	Name() string
