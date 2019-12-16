@@ -47,11 +47,11 @@ type Updator interface {
 	Update(key string, rls *rspb.Release) error
 }
 
-// Deletor is the interface that wraps the Delete method.
+// Deleter is the interface that wraps the Delete method.
 //
 // Delete deletes the release named by key or returns
 // ErrReleaseNotFound if the release does not exist.
-type Deletor interface {
+type Deleter interface {
 	Delete(key string) (*rspb.Release, error)
 }
 
@@ -69,14 +69,14 @@ type Queryor interface {
 	Query(labels map[string]string) ([]*rspb.Release, error)
 }
 
-// Driver is the interface composed of Creator, Updator, Deletor, and Queryor
+// Driver is the interface composed of Creator, Updator, Deleter, and Queryor
 // interfaces. It defines the behavior for storing, updating, deleted,
 // and retrieving Helm releases from some underlying storage mechanism,
 // e.g. memory, configmaps.
 type Driver interface {
 	Creator
 	Updator
-	Deletor
+	Deleter
 	Queryor
 	Name() string
 }
