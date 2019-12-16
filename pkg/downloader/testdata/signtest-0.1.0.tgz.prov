@@ -8,7 +8,7 @@ version: 0.1.0
 
 ...
 files:
-  signtest-0.1.0.tgz: sha256:e5ef611620fb97704d8751c16bab17fedb68883bfb0edc76f78a70e9173f9b55
+  signtest-0.1.0.tgz: 
 -----BEGIN PGP SIGNATURE-----
 
 wsBcBAEBCgAQBQJcoosfCRCEO7+YH8GHYgAA220IALAs8T8NPgkcLvHu+5109cAN

@@ -70,7 +70,7 @@ version: 1.2.3
 
 ...
 files:
-  hashtest-1.2.3.tgz: sha256:c6841b3a895f1444a6738b5d04564a57e860ce42f8519c3be807fb6d9bee7888
+  hashtest-1.2.3.tgz: 
 `
 
 func TestMessageBlock(t *testing.T) {
@@ -101,7 +101,7 @@ func TestParseMessageBlock(t *testing.T) {
 
 	if hash, ok := sc.Files["hashtest-1.2.3.tgz"]; !ok {
 		t.Errorf("hashtest file not found in Files")
-	} else if hash != "sha256:c6841b3a895f1444a6738b5d04564a57e860ce42f8519c3be807fb6d9bee7888" {
+	} else if hash != "" {
 		t.Errorf("Unexpected hash: %q", hash)
 	}
 }

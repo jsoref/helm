@@ -37,12 +37,12 @@ const (
 
 func TestIndexFile(t *testing.T) {
 	i := NewIndexFile()
-	i.Add(&chart.Metadata{Name: "clipper", Version: "0.1.0"}, "clipper-0.1.0.tgz", "http://example.com/charts", "sha256:1234567890")
-	i.Add(&chart.Metadata{Name: "cutter", Version: "0.1.1"}, "cutter-0.1.1.tgz", "http://example.com/charts", "sha256:1234567890abc")
-	i.Add(&chart.Metadata{Name: "cutter", Version: "0.1.0"}, "cutter-0.1.0.tgz", "http://example.com/charts", "sha256:1234567890abc")
-	i.Add(&chart.Metadata{Name: "cutter", Version: "0.2.0"}, "cutter-0.2.0.tgz", "http://example.com/charts", "sha256:1234567890abc")
-	i.Add(&chart.Metadata{Name: "setter", Version: "0.1.9+alpha"}, "setter-0.1.9+alpha.tgz", "http://example.com/charts", "sha256:1234567890abc")
-	i.Add(&chart.Metadata{Name: "setter", Version: "0.1.9+beta"}, "setter-0.1.9+beta.tgz", "http://example.com/charts", "sha256:1234567890abc")
+	i.Add(&chart.Metadata{Name: "clipper", Version: "0.1.0"}, "clipper-0.1.0.tgz", "http://example.com/charts", "")
+	i.Add(&chart.Metadata{Name: "cutter", Version: "0.1.1"}, "cutter-0.1.1.tgz", "http://example.com/charts", "")
+	i.Add(&chart.Metadata{Name: "cutter", Version: "0.1.0"}, "cutter-0.1.0.tgz", "http://example.com/charts", "")
+	i.Add(&chart.Metadata{Name: "cutter", Version: "0.2.0"}, "cutter-0.2.0.tgz", "http://example.com/charts", "")
+	i.Add(&chart.Metadata{Name: "setter", Version: "0.1.9+alpha"}, "setter-0.1.9+alpha.tgz", "http://example.com/charts", "")
+	i.Add(&chart.Metadata{Name: "setter", Version: "0.1.9+beta"}, "setter-0.1.9+beta.tgz", "http://example.com/charts", "")
 
 	i.SortEntries()
 
@@ -260,7 +260,7 @@ func verifyLocalIndex(t *testing.T, i *IndexFile) {
 				"https://kubernetes-charts.storage.googleapis.com/alpine-1.0.0.tgz",
 				"http://storage2.googleapis.com/kubernetes-charts/alpine-1.0.0.tgz",
 			},
-			Digest: "sha256:1234567890abcdef",
+			Digest: "",
 		},
 		{
 			Metadata: &chart.Metadata{
@@ -273,7 +273,7 @@ func verifyLocalIndex(t *testing.T, i *IndexFile) {
 			URLs: []string{
 				"https://kubernetes-charts.storage.googleapis.com/nginx-0.2.0.tgz",
 			},
-			Digest: "sha256:1234567890abcdef",
+			Digest: "",
 		},
 		{
 			Metadata: &chart.Metadata{
@@ -286,7 +286,7 @@ func verifyLocalIndex(t *testing.T, i *IndexFile) {
 			URLs: []string{
 				"https://kubernetes-charts.storage.googleapis.com/nginx-0.1.0.tgz",
 			},
-			Digest: "sha256:1234567890abcdef",
+			Digest: "",
 		},
 	}
 	tests := []*ChartVersion{alpine[0], nginx[0], nginx[1]}
@@ -383,19 +383,19 @@ func TestLoadUnversionedIndex(t *testing.T) {
 
 func TestIndexAdd(t *testing.T) {
 	i := NewIndexFile()
-	i.Add(&chart.Metadata{Name: "clipper", Version: "0.1.0"}, "clipper-0.1.0.tgz", "http://example.com/charts", "sha256:1234567890")
+	i.Add(&chart.Metadata{Name: "clipper", Version: "0.1.0"}, "clipper-0.1.0.tgz", "http://example.com/charts", "")
 
 	if i.Entries["clipper"][0].URLs[0] != "http://example.com/charts/clipper-0.1.0.tgz" {
 		t.Errorf("Expected http://example.com/charts/clipper-0.1.0.tgz, got %s", i.Entries["clipper"][0].URLs[0])
 	}
 
-	i.Add(&chart.Metadata{Name: "alpine", Version: "0.1.0"}, "/home/charts/alpine-0.1.0.tgz", "http://example.com/charts", "sha256:1234567890")
+	i.Add(&chart.Metadata{Name: "alpine", Version: "0.1.0"}, "/home/charts/alpine-0.1.0.tgz", "http://example.com/charts", "")
 
 	if i.Entries["alpine"][0].URLs[0] != "http://example.com/charts/alpine-0.1.0.tgz" {
 		t.Errorf("Expected http://example.com/charts/alpine-0.1.0.tgz, got %s", i.Entries["alpine"][0].URLs[0])
 	}
 
-	i.Add(&chart.Metadata{Name: "deis", Version: "0.1.0"}, "/home/charts/deis-0.1.0.tgz", "http://example.com/charts/", "sha256:1234567890")
+	i.Add(&chart.Metadata{Name: "deis", Version: "0.1.0"}, "/home/charts/deis-0.1.0.tgz", "http://example.com/charts/", "")
 
 	if i.Entries["deis"][0].URLs[0] != "http://example.com/charts/deis-0.1.0.tgz" {
 		t.Errorf("Expected http://example.com/charts/deis-0.1.0.tgz, got %s", i.Entries["deis"][0].URLs[0])

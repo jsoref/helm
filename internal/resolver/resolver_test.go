@@ -156,7 +156,7 @@ func TestResolve(t *testing.T) {
 }
 
 func TestHashReq(t *testing.T) {
-	expect := "sha256:fb239e836325c5fa14b29d1540a13b7d3ba13151b67fe719f820e0ef6d66aaaf"
+	expect := ""
 
 	tests := []struct {
 		name         string
