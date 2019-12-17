@@ -30,7 +30,7 @@ import (
 )
 
 type Options struct {
-	ValueFiles   []string
+	ValuesFiles   []string
 	StringValues []string
 	Values       []string
 	FileValues   []string
@@ -42,7 +42,7 @@ func (opts *Options) MergeValues(p getter.Providers) (map[string]interface{}, er
 	base := map[string]interface{}{}
 
 	// User specified a values files via -f/--values
-	for _, filePath := range opts.ValueFiles {
+	for _, filePath := range opts.ValuesFiles {
 		currentMap := map[string]interface{}{}
 
 		bytes, err := readFile(filePath, p)

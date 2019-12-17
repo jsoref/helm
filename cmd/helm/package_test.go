@@ -221,7 +221,7 @@ func TestPackageValues(t *testing.T) {
 	testCases := []struct {
 		desc               string
 		args               []string
-		valuefilesContents []string
+		valuesfilesContents []string
 		flags              map[string]string
 		expected           []string
 	}{
@@ -229,14 +229,14 @@ func TestPackageValues(t *testing.T) {
 			desc:               "helm package, single values file",
 			args:               []string{"testdata/testcharts/alpine"},
 			flags:              map[string]string{"repository-config": repoFile},
-			valuefilesContents: []string{"Name: chart-name-foo"},
+			valuesfilesContents: []string{"Name: chart-name-foo"},
 			expected:           []string{"Name: chart-name-foo"},
 		},
 		{
 			desc:               "helm package, multiple values files",
 			args:               []string{"testdata/testcharts/alpine"},
 			flags:              map[string]string{"repository-config": repoFile},
-			valuefilesContents: []string{"Name: chart-name-foo", "foo: bar"},
+			valuesfilesContents: []string{"Name: chart-name-foo", "foo: bar"},
 			expected:           []string{"Name: chart-name-foo", "foo: bar"},
 		},
 		{
@@ -248,7 +248,7 @@ func TestPackageValues(t *testing.T) {
 		{
 			desc:               "helm package, set takes precedence over value file",
 			args:               []string{"testdata/testcharts/alpine"},
-			valuefilesContents: []string{"Name: chart-name-foo"},
+			valuesfilesContents: []string{"Name: chart-name-foo"},
 			flags:              map[string]string{"set": "Name=chart-name-bar", "repository-config": repoFile},
 			expected:           []string{"Name: chart-name-bar"},
 		},
@@ -256,11 +256,11 @@ func TestPackageValues(t *testing.T) {
 
 	for _, tc := range testCases {
 		var files []string
-		for _, contents := range tc.valuefilesContents {
+		for _, contents := range tc.valuesfilesContents {
 			f := createValuesFile(t, contents)
 			files = append(files, f)
 		}
-		valueFiles := strings.Join(files, ",")
+		valuesFiles := strings.Join(files, ",")
 
 		expected, err := chartutil.ReadValues([]byte(strings.Join(tc.expected, "\n")))
 		if err != nil {
@@ -274,8 +274,8 @@ func TestPackageValues(t *testing.T) {
 		}
 		tc.flags["destination"] = outputDir
 
-		if len(valueFiles) > 0 {
-			tc.flags["values"] = valueFiles
+		if len(valuesFiles) > 0 {
+			tc.flags["values"] = valuesFiles
 		}
 
 		cmd := newPackageCmd(&bytes.Buffer{})
