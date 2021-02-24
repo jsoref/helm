@@ -94,7 +94,7 @@ type Upgrade struct {
 	// PostRender is an optional post-renderer
 	//
 	// If this is non-nil, then after templates are rendered, they will be sent to the
-	// post renderer before sending to the Kuberntes API server.
+	// post renderer before sending to the Kubernetes API server.
 	PostRenderer postrender.PostRenderer
 	// DisableOpenAPIValidation controls whether OpenAPI validation is enforced.
 	DisableOpenAPIValidation bool
@@ -406,15 +406,15 @@ func (u *Upgrade) failRelease(rel *release.Release, created kube.ResourceList, e
 
 		releaseutil.Reverse(filteredHistory, releaseutil.SortByRevision)
 
-		rollin := NewRollback(u.cfg)
-		rollin.Version = filteredHistory[0].Version
-		rollin.Wait = true
-		rollin.WaitForJobs = u.WaitForJobs
-		rollin.DisableHooks = u.DisableHooks
-		rollin.Recreate = u.Recreate
-		rollin.Force = u.Force
-		rollin.Timeout = u.Timeout
-		if rollErr := rollin.Run(rel.Name); rollErr != nil {
+		rolling := NewRollback(u.cfg)
+		rolling.Version = filteredHistory[0].Version
+		rolling.Wait = true
+		rolling.WaitForJobs = u.WaitForJobs
+		rolling.DisableHooks = u.DisableHooks
+		rolling.Recreate = u.Recreate
+		rolling.Force = u.Force
+		rolling.Timeout = u.Timeout
+		if rollErr := rolling.Run(rel.Name); rollErr != nil {
 			return rel, errors.Wrapf(rollErr, "an error occurred while rolling back the release. original upgrade error: %s", err)
 		}
 		return rel, errors.Wrapf(err, "release %s failed, and has been rolled back due to atomic being set", rel.Name)
