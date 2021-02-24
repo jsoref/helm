@@ -1,0 +1,89 @@
+# circleci
+https://circleci.com/gh/[^/]+/[^/]+/[^/]+(?:/[^/]+|).[a-z]+\?[-0-9a-zA-Z=&]+
+
+# YouTube
+https?://(?:(?:www\.|)youtube\.com|youtu.be)/(?:channel/|embed/|playlist\?list=|watch\?v=|)[-a-zA-Z0-9?&=_]*
+<\s*youtube\s+id=['"][-a-zA-Z0-9?_]*['"]
+\bimg\.youtube\.com/vi/[-a-zA-Z0-9?&=_]*
+# Google Analytics
+\bgoogle-analytics\.com/collect.[-0-9a-zA-Z?%=&_.~]*
+# Google APIs
+\bgoogleapis\.com/[a-z]+/v\d+/[a-z]+/[@./?=\w]+
+\b[-a-zA-Z0-9.]*\bstorage\d*\.googleapis\.com(?:/\S*|)
+# Google Calendar
+\bcalendar\.google\.com/calendar/u/\d+/embed\?src=[@./?=\w]+
+\w+\@group\.calendar\.google\.com\b
+# Google DataStudio
+\bdatastudio\.google\.com/(?:(?:c/|)u/\d+/|)(?:embed/|)(?:open|reporting|datasources|s)/[-0-9a-zA-Z]+(?:/page/[-0-9a-zA-Z]+|)
+# The leading `/` here is as opposed to the `\b` above
+# ... a short way to match `https://` or `http://` since most urls have one of those prefixes
+# Google Docs
+/docs\.google\.com/[a-z]+/d/(?:e/|)[0-9a-zA-Z_-]+/
+# Google Groups
+https://groups\.google\.com/d/topic/[^/]+/[a-zA-Z0-9]+/discussion
+https://groups\.google\.com/d/msg/[^/]+/[a-zA-Z0-9]+/[a-zA-Z0-9]+
+# Google themes
+themes\.googleusercontent\.com/static/fonts/[^/]+/v\d+/[^.]+.
+# Goo.gl
+/goo\.gl/[a-zA-Z0-9]+
+
+# GitHub SHAs
+(?:\[[0-9a-f]+\]\(https:/|)/github\.com/[^/]+/[^/]+/[^/]+/[0-9a-f]+\b
+\bgithub\.com/[^/]+/[^/]+[@#][0-9a-f]+\b
+# githubusercontent
+/[-a-z0-9]+\.githubusercontent\.com/[-a-zA-Z0-9?&=_\/.]*
+# gist github
+/gist\.github\.com/[^/]+/[0-9a-f]+
+
+# msdn
+msdn\.microsoft\.com/[^/]+/library/\S*\.aspx
+
+# Slack
+slack://[a-zA-Z0-9?&=]+
+\bslack\.com/[-0-9a-zA-Z/_]*
+
+# stackexchange -- https://stackexchange.com/feeds/sites
+\b(?:askubuntu|serverfault|stack(?:exchange|overflow)|superuser).com/questions/\d+/[a-z-]+
+
+# URL escaped characters
+\%[0-9A-F]{2}
+
+# sha256
+sha256:[0-9a-f]+
+\b[0-9a-fA-F]{64}\b
+
+# sha-1
+"[0-9a-fA-F]{40}"
+'[0-9a-fA-F]{40}'
+checksum:\s*[0-9a-fA-F]{40}
+
+# URL escaped characters
+\%[0-9A-F]{2}
+
+# hex in url queries
+=[0-9a-fA-F]+&
+
+# hex digits including css/html color classes:
+(?:[\\0][xX]|\\u|[uU]\+|#x?|\%23)[0-9a-fA-FgGrR_]{2,}(?:[uU]?[lL]{0,2}|u\d+)\b
+
+# <word>v#
+[Vv]\d+(?:\b|(?=[a-zA-Z_]))
+
+fakePluginB64 = "[^"]*"
+mockPlugin\("[^"]*"
+
+# ignore long runs of a single character:
+\b([A-Za-z])\g{-1}{3,}\b
+
+#
+adescr\\u0081iption
+
+# misspelled APIs that we are not going to fix
+# https://github.com/helm/helm/pull/7258#discussion_r358977836
+\bDeletor\b
+# https://github.com/helm/helm/pull/7258#discussion_r358977864
+\bQueryor\b
+# https://github.com/helm/helm/pull/7258#discussion_r358977785
+\bUpdator\b
+# https://github.com/helm/helm/pull/7258#discussion_r358977488
+\bValueFiles\b
